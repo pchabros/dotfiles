@@ -7,6 +7,12 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
+" remap hjkl
+noremap ; l
+noremap l k
+noremap k j
+noremap j h
+
 " no swap file
 set noswapfile
 
