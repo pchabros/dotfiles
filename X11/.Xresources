@@ -40,7 +40,7 @@
 URxvt*font: xft:Monaco:size=12:antialias=true
 URxvt*borderLess: false
 URxvt*externalBorder: 0
-URxvt*internalBorder: 10
+URxvt*internalBorder: 5
 URxvt*scrollBar: false
 URxvt*saveLines: 5000
 
