@@ -37,7 +37,7 @@
 *.color14:      base0F
 *.color15:      base07
 
-URxvt*font: xft:Monaco:size=12:antialias=true
+URxvt*font: xft:FiraCode Nerd Font Mono:style=Retina,Regular:size=12:antialias=true
 URxvt*borderLess: false
 URxvt*externalBorder: 0
 URxvt*internalBorder: 5
