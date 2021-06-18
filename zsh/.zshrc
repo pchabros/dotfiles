@@ -44,5 +44,12 @@ fi
 
 source $DOTFILES/zsh/scripts.sh
 
+ftmuxp
+
+# Clearing the shell is now done with CTRL+p
+bindkey -r '^l'
+bindkey -r '^p'
+bindkey -s '^p' 'clear\n'
+
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
