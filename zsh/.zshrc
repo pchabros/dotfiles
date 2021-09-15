@@ -1,12 +1,23 @@
+export PATH="/opt/homebrew/bin/:$PATH"
+
 fpath=($ZDOTDIR/external $fpath)
 
 source "$XDG_CONFIG_HOME/zsh/aliases"
 
 zmodload zsh/complist
-bindkey -M menuselect 'j' vi-backward-char
-bindkey -M menuselect 'l' vi-up-line-or-history
-bindkey -M menuselect ';' vi-forward-char
-bindkey -M menuselect 'k' vi-down-line-or-history
+
+bindkey 'jk' vi-cmd-mode
+bindkey 'kj' vi-cmd-mode
+
+bindkey -M menuselect j vi-backward-char
+bindkey -M menuselect k vi-down-line-or-history
+bindkey -M menuselect l vi-up-line-or-history
+bindkey -M menuselect \; vi-forward-char
+
+bindkey -a j vi-backward-char
+bindkey -a k vi-down-line-or-history
+bindkey -a l vi-up-line-or-history
+bindkey -a \; vi-forward-char
 
 autoload -Uz compinit; compinit
 _comp_options+=(globdots) # With hidden files
@@ -33,8 +44,8 @@ bindkey -M vicmd v edit-command-line
 source ~/dotfiles/zsh/external/bd.zsh
 
 if [ $(command -v "fzf") ]; then
-    source /usr/share/fzf/completion.zsh
-    source /usr/share/fzf/key-bindings.zsh
+    source /opt/homebrew/Cellar/fzf/0.27.2/shell/completion.zsh
+    source /opt/homebrew/Cellar/fzf/0.27.2/shell/key-bindings.zsh
 fi
 
 if [ "$(tty)" = "/dev/tty1" ];
@@ -51,5 +62,25 @@ bindkey -r '^l'
 bindkey -r '^p'
 bindkey -s '^p' 'clear\n'
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$DOTFILES/zsh/external/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh"
+export CLICOLOR=YES
+test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
 
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/pchabros/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/pchabros/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/pchabros/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/pchabros/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+# Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"

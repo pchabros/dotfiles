@@ -1,9 +1,44 @@
 alias ll='ls -lah'
+alias gss='git status -s'
+alias gd='git diff'
+alias gds='git diff --staged'
 alias ga='git add'
+alias gaa='git add -A'
 alias gc='git commit'
+alias gcm='git commit -m'
+alias gca='git commit -a'
+alias gch='git checkout'
 alias gp='git push'
+alias gpu='git push --set-upstream origin $(git branch --show-current)'
+alias gpl='git pull'
+alias gm='git merge'
+alias gss='git status -s'
+alias gt='git log --all --graph --decorate --oneline'
 
 alias d='dirs -v'
 for index ({1...9}) alias "$index"="cd +${index}"; unset index
 
 alias r='radian'
+
+alias rsh="Rscript -e 'shiny::runApp(launch.browser = TRUE)'"
+rmd() {
+  r_command="rmarkdown::render('${1}')"
+  Rscript -e $r_command
+}
+rpi() {
+  local package="$(pwd | awk -F '/' '{print $NF}')"
+  Rscript -e 'roxygen2::roxygenize()'
+  cd ..
+  R CMD INSTALL --no-multiarch --with-keep.source $package
+  cd $package
+}
+alias rpb="Rscript -e 'devtools::build()'"
+alias rpc="Rscript -e 'devtools::check(document = FALSE)'"
+nvimr() {
+  Rscript -e 'renv::settings$ignored.packages("nvimcom")'
+  Rscript -e 'install.packages("devtools")'
+  Rscript -e 'devtools::install("~/.config/nvim/plugged/Nvim-R/R/nvimcom")'
+  Rscript -e 'install.packages("languageserver")'
+}
+
+alias brew='arch -arm64 brew'
