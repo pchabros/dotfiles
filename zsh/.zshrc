@@ -62,10 +62,6 @@ bindkey -r '^l'
 bindkey -r '^p'
 bindkey -s '^p' 'clear\n'
 
-source "$DOTFILES/zsh/external/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh"
-export CLICOLOR=YES
-test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/pchabros/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -84,3 +80,9 @@ unset __conda_setup
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# suntax highlighting
+source "$DOTFILES/zsh/external/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+export CLICOLOR=YES
+test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
+
