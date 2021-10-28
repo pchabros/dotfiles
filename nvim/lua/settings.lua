@@ -1,8 +1,18 @@
 local opt = vim.opt
+local g = vim.g
 vim.cmd("colorscheme nord")
+local custom_nord = require("lualine.themes.nord")
+custom_nord.normal.a.bg = "#ffffff"
+custom_nord.normal.a.fg = "#2a89ab"
+custom_nord.visual.a.bg = "#2a89ab"
+custom_nord.visual.a.fg = "#ffffff"
+-- custom_nord.normal.a.gui = null
+custom_nord.normal.b.bg = "#2a89ab"
+custom_nord.normal.c.bg = "#000000"
+custom_nord.inactive.c.bg = "#000000"
 require("lualine").setup({
   options = {
-    theme = "nord"
+    theme = custom_nord
   },
   sections = {
     lualine_a = {"mode"},
@@ -29,7 +39,9 @@ require("lualine").setup({
     lualine_z = {}
   }
 })
-vim.g.colorizer_auto_color = 1
+require("lspconfig").html.setup({})
+require("lspconfig").cssls.setup({})
+require("lspconfig").tsserver.setup({})
 opt.hidden = true
 opt.autoread = true
 opt.swapfile = false
@@ -40,6 +52,7 @@ opt.relativenumber = true
 opt.number = true
 opt.incsearch = true
 opt.autoindent = true
+opt.smartindent = true
 opt.expandtab = true
 opt.tabstop = 2
 opt.softtabstop = 2
@@ -48,3 +61,5 @@ opt.inccommand = "nosplit"
 opt.scrolloff = 10
 opt.wrap = false
 opt.clipboard = "unnamedplus"
+g.timeoutlen = 100
+g.r_indent_align_args = 0

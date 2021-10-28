@@ -12,7 +12,7 @@ return require("packer").startup(
   function()
     use({ "wbthomason/packer.nvim", opt = true })
     use({ "moll/vim-bbye" })
-    use({ "chrisbra/Colorizer" })
+    use({ "lilydjwg/colorizer" })
     use({ "christoomey/vim-tmux-navigator" })
     use({ "arcticicestudio/nord-vim" })
     use({ "nvim-treesitter/nvim-treesitter" })
@@ -28,20 +28,20 @@ return require("packer").startup(
     use({ "glepnir/lspsaga.nvim" })
     use({ "windwp/nvim-autopairs" })
     use({
-      'hoob3rt/lualine.nvim',
-      requires = {'kyazdani42/nvim-web-devicons', opt = true}
+      "hoob3rt/lualine.nvim",
+      requires = {"kyazdani42/nvim-web-devicons", opt = true}
     })
     use({ "b3nj5m1n/kommentary" })
     use({ "tpope/vim-obsession" })
     use({
-      'nvim-telescope/telescope.nvim',
-      requires = { {'nvim-lua/plenary.nvim'} }
+      "nvim-telescope/telescope.nvim",
+      requires = { {"nvim-lua/plenary.nvim"} }
     })
     use({
-      'phaazon/hop.nvim',
-      as = 'hop',
+      "phaazon/hop.nvim",
+      as = "hop",
       config = function()
-        require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+        require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
       end
     })
   end,

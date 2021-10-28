@@ -36,6 +36,7 @@ map("n", "<leader>sv", ":vsplit<cr>")
 
 -- move outside bracket/quote in normal mode
 map("i", ";;", "<Esc>la")
+map("i", "jj", "<Esc>i")
 
 -- next/previous after jumping with f or t
 map("n", "'", ";")
@@ -50,7 +51,8 @@ map("n", "<leader>rs", ":vertical resize 103<cr>")
 -- lsp
 map("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>")
 map("n", "H", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>")
-map("n", "gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>")
+map("n", "<C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
+map("n", "<C-b>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>")
 map("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 map("n", "gds", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
 map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
