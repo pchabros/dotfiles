@@ -23,7 +23,6 @@ return require("packer").startup(
       "saadparwaiz1/cmp_luasnip"
     } } })
     use({ "mfussenegger/nvim-dap" })
-    use({ "scalameta/nvim-metals" })
     use({ "neovim/nvim-lspconfig" })
     use({ "glepnir/lspsaga.nvim" })
     use({ "windwp/nvim-autopairs" })
@@ -33,9 +32,11 @@ return require("packer").startup(
     })
     use({ "b3nj5m1n/kommentary" })
     use({ "tpope/vim-obsession" })
+    use({ "tomlion/vim-solidity" })
+    use({ "tzachar/cmp-tabnine", run="./install.sh", requires = "hrsh7th/nvim-cmp" })
     use({
-      "nvim-telescope/telescope.nvim",
-      requires = { {"nvim-lua/plenary.nvim"} }
+      'nvim-telescope/telescope.nvim',
+      requires = { {'nvim-lua/plenary.nvim'} }
     })
     use({
       "phaazon/hop.nvim",

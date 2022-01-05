@@ -1,43 +1,19 @@
--- global
-local cmd = vim.cmd
-vim.opt_global.completeopt = { "menu", "noinsert", "noselect" }
-vim.opt_global.shortmess:remove("F"):append("c")
-cmd([[augroup lsp]])
-cmd([[autocmd!]])
-cmd([[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]])
-cmd([[autocmd FileType scala,sbt lua require("metals").initialize_or_attach(metals_config)]])
-cmd([[augroup end]])
-vim.cmd([[hi! link LspReferenceText CursorColumn]])
-vim.cmd([[hi! link LspReferenceRead CursorColumn]])
-vim.cmd([[hi! link LspReferenceWrite CursorColumn]])
-
--- metals
-metals_config = require("metals").bare_config
-metals_config.settings = {
-  showImplicitArguments = true,
-  excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
-}
-metals_config.init_options.statusBarProvider = "on"
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-metals_config.capabilities = capabilities
-
--- languageserver R
-require("lspconfig").r_language_server.setup({
-  settings = {
-    filetypes = { "r", "rmd", "rpr" },
-    r = {
-      lsp = {
-        debug = true,
-        path = "/usr/local/bin/R"
-      },
-      rpath = {
-        mac = "/usr/local/bin/R"
-      }
-    }
-  },
-  capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-})
+--- languageserver R
+-require("lspconfig").r_language_server.setup({
+-  settings = {
+-    filetypes = { "r", "rmd", "rpr" },
+-    r = {
+-      lsp = {
+-        debug = true,
+-        path = "/usr/local/bin/R"
+-      },
+-      rpath = {
+-        mac = "/usr/local/bin/R"
+-      }
+-    }
+-  },
+-  capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-})
 
 -- Tree-sitter
 local ts = require("nvim-treesitter.configs")
@@ -47,6 +23,9 @@ ts.setup({ ensure_installed = "maintained", highlight = { enable = true } })
 local cmp = require("cmp")
 
 cmp.setup({
+  sources = {
+    { name = "cmp_tabnine" },
+  },
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
@@ -67,7 +46,8 @@ cmp.setup({
   }
 })
 
-require("nvim-autopairs.completion.cmp").setup({
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on( "confirm_done", cmp_autopairs.on_confirm_done({
   map_cr = true,
   map_complete = true,
   auto_select = true,
@@ -76,13 +56,27 @@ require("nvim-autopairs.completion.cmp").setup({
     all = "(",
     tex = "{"
   }
+}))
+
+cmp_autopairs.lisp[#cmp_autopairs.lisp+1] = "racket"
+
+local tabnine = require("cmp_tabnine.config")
+tabnine:setup({
+	max_lines = 1000;
+	max_num_results = 20;
+	sort = true;
+	run_on_every_keystroke = true;
+	snippet_placeholder = '..';
 })
 
+-- solidity
+require("lspconfig").solidity_ls.setup({})
+
 -- popups (lspsaga)
-local saga = require("lspsaga")
+--[[ local saga = require("lspsaga")
 saga.init_lsp_saga({
   border_style = "round",
   rename_action_keys = {
     quit = "<Esc>"
   }
-})
+}) ]]
