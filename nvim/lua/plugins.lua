@@ -25,11 +25,10 @@ return require("packer").startup(
     use({ "neovim/nvim-lspconfig" })
     use({ "glepnir/lspsaga.nvim" })
     use({ "windwp/nvim-autopairs" })
-    use({
-      "hoob3rt/lualine.nvim",
-      requires = {"kyazdani42/nvim-web-devicons", opt = true}
-    })
-    use({ "marko-cerovac/material.nvim" })
+    use({ "vim-airline/vim-airline" })
+    use({ "vim-airline/vim-airline-themes" })
+    use({ "kyazdani42/nvim-web-devicons"})
+    use({ "arcticicestudio/nord-vim" })
     use({ "b3nj5m1n/kommentary" })
     use({ "tpope/vim-obsession" })
     use({ "tomlion/vim-solidity" })

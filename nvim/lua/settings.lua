@@ -23,11 +23,10 @@ opt.wrap = false
 opt.clipboard = "unnamedplus"
 g.timeoutlen = 100
 g.r_indent_align_args = 0
+o.termguicolors = true
 
-g.material_style = "oceanic"
-vim.cmd("colorscheme material")
-require('lualine').setup {
-  options = {
-    theme = 'material-nvim'
-  }
-}
+vim.cmd("au ColorScheme * hi Normal ctermbg=none guibg=none")
+vim.cmd("colorscheme nord")
+vim.cmd("let g:airline#extensions#tabline#enabled = 1")
+vim.cmd("let g:airline_powerline_fonts = 1")
+

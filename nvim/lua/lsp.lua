@@ -71,10 +71,15 @@ tabnine:setup({
 
 -- solidity
 require("lspconfig").solidity_ls.setup({})
+require("lspconfig").solang.setup({})
 
 -- web
 require("lspconfig").html.setup({})
-require("lspconfig").cssls.setup({})
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+require("lspconfig").cssls.setup({
+  capabilities = capabilities,
+})
 require("lspconfig").tsserver.setup({})
 
 -- popups (lspsaga)

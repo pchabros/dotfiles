@@ -1,4 +1,4 @@
-export PATH="/opt/homebrew/bin/:$PATH"
+export PATH="$HOME/.local/bin/:/opt/homebrew/bin/:$PATH"
 
 fpath=($ZDOTDIR/external $fpath)
 
