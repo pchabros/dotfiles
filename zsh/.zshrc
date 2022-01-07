@@ -48,11 +48,6 @@ if [ $(command -v "fzf") ]; then
     source /opt/homebrew/Cellar/fzf/0.27.2/shell/key-bindings.zsh
 fi
 
-if [ "$(tty)" = "/dev/tty1" ];
-then
-    pgrep i3 || exec startx "$XDG_CONFIG_HOME/X11/.xinitrc"
-fi
-
 source $DOTFILES/zsh/scripts.sh
 
 ftmuxp
@@ -61,28 +56,3 @@ ftmuxp
 bindkey -r '^l'
 bindkey -r '^p'
 bindkey -s '^p' 'clear\n'
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/pchabros/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/pchabros/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/Users/pchabros/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/pchabros/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-# Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# suntax highlighting
-source "$DOTFILES/zsh/external/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-export CLICOLOR=YES
-test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
-

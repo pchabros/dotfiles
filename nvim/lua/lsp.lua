@@ -1,19 +1,19 @@
---- languageserver R
--require("lspconfig").r_language_server.setup({
--  settings = {
--    filetypes = { "r", "rmd", "rpr" },
--    r = {
--      lsp = {
--        debug = true,
--        path = "/usr/local/bin/R"
--      },
--      rpath = {
--        mac = "/usr/local/bin/R"
--      }
--    }
--  },
--  capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
--})
+-- languageserver R
+require("lspconfig").r_language_server.setup({
+  settings = {
+    filetypes = { "r", "rmd", "rpr" },
+    r = {
+      lsp = {
+        debug = true,
+        path = "/usr/local/bin/R"
+      },
+      rpath = {
+        mac = "/usr/local/bin/R"
+      }
+    }
+  },
+  capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+})
 
 -- Tree-sitter
 local ts = require("nvim-treesitter.configs")
@@ -72,11 +72,16 @@ tabnine:setup({
 -- solidity
 require("lspconfig").solidity_ls.setup({})
 
+-- web
+require("lspconfig").html.setup({})
+require("lspconfig").cssls.setup({})
+require("lspconfig").tsserver.setup({})
+
 -- popups (lspsaga)
---[[ local saga = require("lspsaga")
+local saga = require("lspsaga")
 saga.init_lsp_saga({
   border_style = "round",
   rename_action_keys = {
     quit = "<Esc>"
   }
-}) ]]
+})

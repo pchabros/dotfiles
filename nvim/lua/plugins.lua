@@ -14,7 +14,6 @@ return require("packer").startup(
     use({ "moll/vim-bbye" })
     use({ "lilydjwg/colorizer" })
     use({ "christoomey/vim-tmux-navigator" })
-    use({ "arcticicestudio/nord-vim" })
     use({ "nvim-treesitter/nvim-treesitter" })
     use({ "hrsh7th/nvim-cmp", requires = { { 
       "hrsh7th/cmp-nvim-lsp",
@@ -30,6 +29,7 @@ return require("packer").startup(
       "hoob3rt/lualine.nvim",
       requires = {"kyazdani42/nvim-web-devicons", opt = true}
     })
+    use({ "marko-cerovac/material.nvim" })
     use({ "b3nj5m1n/kommentary" })
     use({ "tpope/vim-obsession" })
     use({ "tomlion/vim-solidity" })

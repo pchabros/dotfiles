@@ -3,4 +3,4 @@ require("lsp")
 require("mappings")
 require("settings")
 
-require('nvim-autopairs').setup{}
+require("nvim-autopairs").setup({})
