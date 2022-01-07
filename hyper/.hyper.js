@@ -32,10 +32,12 @@ module.exports = {
         // terminal background color
         // opacity is only supported on macOS
         backgroundColor: '#00000090',
+        // hyper-opacity
+        opacity: 0.96,
         // terminal selection color
         selectionColor: 'rgba(248,28,229,0.3)',
         // border color (window, tabs)
-        borderColor: '#333',
+        borderColor: 'transparent',
         // custom CSS to embed in the main window
         css: '',
         // custom CSS to embed in the terminal window
@@ -50,13 +52,19 @@ module.exports = {
         // default: `true` (without backticks and without quotes) on Windows and Linux, ignored on macOS
         showWindowControls: '',
         // custom padding (CSS format, i.e.: `top right bottom left`)
-        padding: '12px 14px',
+        padding: '1px 0 2px 8px',
         // the full list. if you're going to provide the full color palette,
         // including the 6 x 6 color cubes and the grayscale map, just provide
         // an array here instead of a color map object
         colors: { },
         materialshell: {
           theme: 'oceanic'
+        },
+        // hyperborder
+        hyperBorder: {
+          borderColors: ['#024b6b', '#026b56'],
+          borderWidth: '3px',
+          borderRadiusInner: '8px',
         },
         // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
         // if left empty, your system's login shell will be used by default
@@ -119,6 +127,8 @@ module.exports = {
     //   `project#1.0.1`
     plugins: [
       "hyper-materialshell",
+      "hyper-opacity",
+      "hyperborder",
     ],
     // in development, you can create a directory under
     // `~/.hyper_plugins/local/` and include it here

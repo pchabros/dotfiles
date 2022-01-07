@@ -44,8 +44,8 @@ bindkey -M vicmd v edit-command-line
 source ~/dotfiles/zsh/external/bd.zsh
 
 if [ $(command -v "fzf") ]; then
-    source /opt/homebrew/Cellar/fzf/0.27.2/shell/completion.zsh
-    source /opt/homebrew/Cellar/fzf/0.27.2/shell/key-bindings.zsh
+    source /opt/homebrew/Cellar/fzf/0.29.0/shell/completion.zsh
+    source /opt/homebrew/Cellar/fzf/0.29.0/shell/key-bindings.zsh
 fi
 
 source $DOTFILES/zsh/scripts.sh
