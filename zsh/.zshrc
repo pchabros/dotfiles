@@ -1,4 +1,11 @@
-export PATH="$HOME/.local/bin/:/opt/homebrew/bin/:$PATH"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+export PATH="$HOME/.local/bin/:/opt/homebrew/bin/:$HOME/Library/Python/3.8/bin/:$PATH"
 
 fpath=($ZDOTDIR/external $fpath)
 
@@ -21,9 +28,8 @@ bindkey -a \; vi-forward-char
 
 autoload -Uz compinit; compinit
 _comp_options+=(globdots) # With hidden files
-source ~/dotfiles/zsh/external/completion.zsh
 
-autoload -Uz prompt_purification_setup; prompt_purification_setup
+source ~/dotfiles/zsh/external/completion.zsh
 
 # Push the current directory visited on to the stack.
 setopt AUTO_PUSHD
@@ -56,3 +62,11 @@ ftmuxp
 bindkey -r '^l'
 bindkey -r '^p'
 bindkey -s '^p' 'clear\n'
+
+# Syntax highlighing
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
+
+# Powerlevel
+source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

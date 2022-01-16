@@ -60,15 +60,6 @@ cmp.event:on( "confirm_done", cmp_autopairs.on_confirm_done({
 
 cmp_autopairs.lisp[#cmp_autopairs.lisp+1] = "racket"
 
-local tabnine = require("cmp_tabnine.config")
-tabnine:setup({
-	max_lines = 1000;
-	max_num_results = 20;
-	sort = true;
-	run_on_every_keystroke = true;
-	snippet_placeholder = '..';
-})
-
 -- solidity
 require("lspconfig").solidity_ls.setup({})
 require("lspconfig").solang.setup({})
@@ -81,6 +72,9 @@ require("lspconfig").cssls.setup({
   capabilities = capabilities,
 })
 require("lspconfig").tsserver.setup({})
+require("lspconfig").vuels.setup({})
+require("lspconfig").eslint.setup({})
+vim.api.nvim_exec([[autocmd BufWritePre <buffer> EslintFixAll]], true)
 
 -- popups (lspsaga)
 local saga = require("lspsaga")
@@ -89,4 +83,13 @@ saga.init_lsp_saga({
   rename_action_keys = {
     quit = "<Esc>"
   }
+})
+
+require("null-ls").setup({
+  sources = {
+    require("null-ls").builtins.formatting.stylua,
+    require("null-ls").builtins.diagnostics.eslint,
+    require("null-ls").builtins.completion.spell,
+  },
+  -- root_dir = u.root_pattern(".null-ls-root", "Makefile", ".git", ".eslintrc.js"),
 })

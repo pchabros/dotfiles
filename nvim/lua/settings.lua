@@ -17,6 +17,7 @@ opt.expandtab = true
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 2
+opt.indentexpr = "cindent"
 opt.inccommand = "nosplit"
 opt.scrolloff = 10
 opt.wrap = false

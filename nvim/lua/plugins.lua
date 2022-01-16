@@ -22,8 +22,9 @@ return require("packer").startup(
       "saadparwaiz1/cmp_luasnip"
     } } })
     use({ "mfussenegger/nvim-dap" })
+    use({ "leafOfTree/vim-vue-plugin" })
     use({ "neovim/nvim-lspconfig" })
-    use({ "glepnir/lspsaga.nvim" })
+    use({ "tami5/lspsaga.nvim" })
     use({ "windwp/nvim-autopairs" })
     use({ "vim-airline/vim-airline" })
     use({ "vim-airline/vim-airline-themes" })
@@ -32,7 +33,7 @@ return require("packer").startup(
     use({ "b3nj5m1n/kommentary" })
     use({ "tpope/vim-obsession" })
     use({ "tomlion/vim-solidity" })
-    use({ "tzachar/cmp-tabnine", run="./install.sh", requires = "hrsh7th/nvim-cmp" })
+    use({ "jose-elias-alvarez/null-ls.nvim" })
     use({
       'nvim-telescope/telescope.nvim',
       requires = { {'nvim-lua/plenary.nvim'} }

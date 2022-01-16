@@ -1,3 +1,5 @@
+# Package Config
+export PKG_CONFIG_PATH="/opt/homebrew/Cellar/openssl@1.1/1.1.1m/lib/pkgconfig"
 # For dotfiles
 export XDG_CONFIG_HOME="$HOME/.config"
 # For specific data
