@@ -22,6 +22,7 @@ return require("packer").startup(
       "saadparwaiz1/cmp_luasnip"
     } } })
     use({ "mfussenegger/nvim-dap" })
+    use({ "onsails/lspkind-nvim" })
     use({ "leafOfTree/vim-vue-plugin" })
     use({ "neovim/nvim-lspconfig" })
     use({ "tami5/lspsaga.nvim" })
@@ -35,16 +36,14 @@ return require("packer").startup(
     use({ "tomlion/vim-solidity" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
     use({
-      'nvim-telescope/telescope.nvim',
-      requires = { {'nvim-lua/plenary.nvim'} }
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons"
     })
     use({
-      "phaazon/hop.nvim",
-      as = "hop",
-      config = function()
-        require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-      end
+      'nvim-telescope/telescope.nvim',
+      requires = "nvim-lua/plenary.nvim"
     })
+    use({ "phaazon/hop.nvim", as = "hop" })
   end,
   {
     display = {

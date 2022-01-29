@@ -62,11 +62,6 @@ map("n", "<leader>ca", "<cmd>lua require('telescope.builtin').lsp_code_actions()
 map("n", "<leader>d", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>") -- buffer diagnostics only
 map("n", "[c", "<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>")
 map("n", "]c", "<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>")
--- metals specific
-map("n", "<leader>ws", "<cmd>lua require'metals'.worksheet_hover()<CR>")
-map("n", "<leader>a", "<cmd>lua require'metals'.open_all_diagnostics()<CR>")
-map("n", "<leader>tt", "<cmd>lua require('metals.tvp').toggle_tree_view()<CR>")
-map("n", "<leader>tr", "<cmd>lua require('metals.tvp').reveal_in_tree()<CR>")
 
 -- telescope
 map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>")
@@ -76,6 +71,9 @@ map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 map("n", "<leader>gc", "<cmd>lua require('telescope.builtin').git_commits()<cr>")
 map("n", "<leader>gs", "<cmd>lua require('telescope.builtin').git_status()<cr>")
 
+-- trouble
+map("n", "<leader>tt", "<cmd>TroubleToggle<CR>")
+
 -- hop
-map("n", "s", "<cmd>:HopChar1<cr>")
-map("v", "s", "<cmd>:HopChar1<cr>")
+map("n", "h", "<cmd>:HopChar1<cr>")
+map("v", "h", "<cmd>:HopChar1<cr>")
