@@ -8,7 +8,7 @@ alias gaa='git add -A'
 alias gr='git restore'
 alias gc='git commit'
 alias gcm='git commit -m'
-alias gca='git commit -a'
+alias gca='git commit --amend'
 alias gch='git checkout'
 alias gp='git push'
 alias gpu='git push --set-upstream origin $(git branch --show-current)'
@@ -20,12 +20,15 @@ alias gt='git log --all --graph --decorate --oneline'
 alias hc='npx hardhat compile'
 alias hn='npx hardhat node'
 alias ht='npx hardhat test'
-alias hr='npx hardhat run'
-alias hrl='npx hardhat run --network localhost'
-alias hrr='npx hardhat run --network rinkeby'
+alias hr='npx hardhat run scripts/run.js'
+alias hd='npx hardhat run scripts/deploy.js'
+alias hdl='npx hardhat run scripts/deploy.js --network localhost'
+alias hdr='npx hardhat run scripts/deploy.js --network rinkeby'
 
 alias ..='cd ..'
 alias ...='cd ../..'
+
+alias tree='tree -C'
 
 alias d='dirs -v'
 for index ({1...9}) alias "$index"="cd +${index}"; unset index
@@ -54,3 +57,4 @@ nvimr() {
 }
 
 alias brew='arch -arm64 brew'
+

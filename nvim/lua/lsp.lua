@@ -1,5 +1,8 @@
+local lspconfig = require("lspconfig")
+vim.opt_global.completeopt = { "menu", "noinsert", "noselect" }
+vim.opt_global.shortmess:remove("F"):append("c")
 -- languageserver R
-require("lspconfig").r_language_server.setup({
+lspconfig.r_language_server.setup({
   settings = {
     filetypes = { "r", "rmd", "rpr" },
     r = {
@@ -21,39 +24,62 @@ ts.setup({ ensure_installed = "maintained", highlight = { enable = true } })
 
 -- completion related settings
 local cmp = require("cmp")
-
 local lspkind = require("lspkind")
+
 cmp.setup({
   snippet = {
     expand = function(args)
-      require("luasnip").lsp_expand(args.body)
+      require('luasnip').lsp_expand(args.body)
+      require("luasnip").filetype_extend("javascript", { "javascriptreact" })
     end,
   },
   formatting = {
     format = lspkind.cmp_format({
-      with_text = false, -- do not show text alongside icons
-      maxwidth = 90, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      -- The function below will be called before any actual modifications from lspkind
-      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      mode = "symbol",
+      with_text = false,
+      maxwidth = 90,
       before = function (entry, vim_item)
         return vim_item
       end
     })
   },
   mapping = {
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
-    ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" })
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable,
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
   },
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-    { name = "buffer" },
-  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  }, {
+    { name = 'buffer' },
+  })
 })
+
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+local luasnip = require("luasnip")
+luasnip.snippets = {
+  html = {}
+}
+luasnip.snippets.javascript = luasnip.snippets.html
+luasnip.snippets.javascriptreact = luasnip.snippets.html
+require('luasnip').filetype_extend("javascript", { "javascriptreact" })
+require("luasnip/loaders/from_vscode").load({include = { "html" }})
+require("luasnip/loaders/from_vscode").lazy_load()
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on( "confirm_done", cmp_autopairs.on_confirm_done({
@@ -70,20 +96,22 @@ cmp.event:on( "confirm_done", cmp_autopairs.on_confirm_done({
 cmp_autopairs.lisp[#cmp_autopairs.lisp+1] = "racket"
 
 -- solidity
-require("lspconfig").solang.setup({})
--- require("lspconfig").solc.setup({})
+lspconfig.solang.setup({})
+-- lspconfig.solc.setup({})
 
 -- web
-require("lspconfig").html.setup({})
+lspconfig.html.setup({})
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-require("lspconfig").cssls.setup({
+lspconfig.cssls.setup({
   capabilities = capabilities,
 })
-require("lspconfig").tsserver.setup({})
-require("lspconfig").vuels.setup({})
-require("lspconfig").eslint.setup({})
+lspconfig.vuels.setup({})
+lspconfig.eslint.setup({})
 -- vim.api.nvim_exec([[autocmd FileType vue BufWritePre <buffer> EslintFixAll]], true)
+
+-- typescript
+lspconfig.tsserver.setup({})
 
 -- popups (lspsaga)
 local saga = require("lspsaga")

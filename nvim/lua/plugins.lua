@@ -12,15 +12,17 @@ return require("packer").startup(
   function()
     use({ "wbthomason/packer.nvim", opt = true })
     use({ "moll/vim-bbye" })
+    use({ "tpope/vim-surround" })
     use({ "lilydjwg/colorizer" })
     use({ "christoomey/vim-tmux-navigator" })
     use({ "nvim-treesitter/nvim-treesitter" })
-    use({ "hrsh7th/nvim-cmp", requires = { { 
+    use({ "hrsh7th/nvim-cmp", requires = {{ 
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip"
-    } } })
+    }}})
+    use({ "rafamadriz/friendly-snippets" })
     use({ "mfussenegger/nvim-dap" })
     use({ "onsails/lspkind-nvim" })
     use({ "leafOfTree/vim-vue-plugin" })
@@ -35,14 +37,29 @@ return require("packer").startup(
     use({ "tpope/vim-obsession" })
     use({ "tomlion/vim-solidity" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
+    use({ "gbprod/cutlass.nvim" })
+    use({ "norcalli/nvim-terminal.lua" })
+    use({ "camgraff/telescope-tmux.nvim" })
+    use({
+      "AckslD/nvim-neoclip.lua",
+      requires = {
+        {"tami5/sqlite.lua", module = "sqlite"},
+        {"nvim-telescope/telescope.nvim"},
+        {"ibhagwan/fzf-lua"},
+      },
+      config = function()
+        require("neoclip").setup({})
+      end,
+    })
     use({
       "folke/trouble.nvim",
       requires = "kyazdani42/nvim-web-devicons"
     })
     use({
-      'nvim-telescope/telescope.nvim',
+      "nvim-telescope/telescope.nvim",
       requires = "nvim-lua/plenary.nvim"
     })
+    use({"nvim-telescope/telescope-fzf-native.nvim", run = "make" })
     use({ "phaazon/hop.nvim", as = "hop" })
   end,
   {
@@ -51,3 +68,4 @@ return require("packer").startup(
     }
   }
 )
+

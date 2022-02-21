@@ -38,6 +38,9 @@ map("n", "<leader>sv", ":vsplit<cr>")
 map("i", ";;", "<Esc>la")
 map("i", "jj", "<Esc>i")
 
+-- don't jump to the next after pressing *
+map("n", "*", ":keepjumps normal! mi*`i<cr>")
+
 -- next/previous after jumping with f or t
 map("n", "'", ";")
 map("n", "m", ",")
@@ -49,31 +52,36 @@ map("n", "h", ":noh<cr>")
 map("n", "<leader>rs", ":vertical resize 103<cr>")
 
 -- lsp
-map("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>")
+map("n", "<leader>gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>")
 map("n", "H", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>")
 map("n", "<C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
 map("n", "<C-b>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>")
-map("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
-map("n", "gds", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
 map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
-map("n", "<leader>rn", "<cmd>lua require('lspsaga.rename').rename()<CR>")
-map("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+map("n", "<leader>re", "<cmd>lua require('lspsaga.rename').rename()<CR>")
+map("n", "<leader>bf", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 map("n", "<leader>ca", "<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>")
-map("n", "<leader>d", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>") -- buffer diagnostics only
-map("n", "[c", "<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>")
-map("n", "]c", "<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>")
+map("n", "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics()<CR>") -- buffer diagnostics only
+map("n", "d[", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+map("n", "d]", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 
 -- telescope
 map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>")
 map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
 map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
+map("n", "<leader>fr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
+map("n", "<leader>ds", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
 map("n", "<leader>gc", "<cmd>lua require('telescope.builtin').git_commits()<cr>")
+map("n", "<leader>gf", "<cmd>lua require('telescope.builtin').git_bcommits()<cr>")
 map("n", "<leader>gs", "<cmd>lua require('telescope.builtin').git_status()<cr>")
+map("n", "<leader>gb", "<cmd>lua require('telescope.builtin').git_branches()<cr>")
+map("n", "<leader>gt", "<cmd>lua require('telescope.builtin').git_stash()<cr>")
 
 -- trouble
 map("n", "<leader>tt", "<cmd>TroubleToggle<CR>")
 
 -- hop
-map("n", "h", "<cmd>:HopChar1<cr>")
-map("v", "h", "<cmd>:HopChar1<cr>")
+map("n", "<leader>h", "<cmd>:HopChar1<cr>")
+map("v", "<leader>h", "<cmd>:HopChar1<cr>")
+map("n", "<leader>hl", "<cmd>:HopLine<cr>")
+map("v", "<leader>hl", "<cmd>:HopLine<cr>")

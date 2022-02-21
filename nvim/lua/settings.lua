@@ -24,7 +24,7 @@ opt.scrolloff = 10
 opt.wrap = false
 opt.clipboard = "unnamedplus"
 opt.spelllang = "ru"
-g.timeoutlen = 100
+g.timeoutlen = 10
 g.r_indent_align_args = 0
 o.termguicolors = true
 
@@ -34,11 +34,23 @@ cmd("let g:airline#extensions#tabline#enabled = 1")
 cmd("let g:airline_powerline_fonts = 1")
 
 -- telescope
-require("telescope").setup({
+local actions = require("telescope.actions")
+local telescope = require("telescope")
+telescope.setup({
   defaults = {
     file_ignore_patterns = { "node_modules" },
-  },
+    mappings = {
+      n = {
+        ["k"] = actions.move_selection_next,
+        ["l"] = actions.move_selection_previous,
+      }
+    }
+  }
 })
+
+telescope.load_extension("fzf")
+telescope.load_extension("neoclip")
+telescope.load_extension("tmux")
 
 -- hop
 require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
@@ -48,3 +60,14 @@ vim.cmd("hi HopNextKey2 guifg=#b48ead")
 
 -- trouble
 require("trouble").setup({})
+
+-- cutlass
+require("cutlass").setup({
+  cut_key = "z"
+})
+
+-- neoclip
+require("neoclip").setup({})
+
+--terminal
+require("terminal").setup({})
