@@ -96,7 +96,8 @@ cmp.event:on( "confirm_done", cmp_autopairs.on_confirm_done({
 cmp_autopairs.lisp[#cmp_autopairs.lisp+1] = "racket"
 
 -- solidity
-lspconfig.solang.setup({})
+lspconfig.solidity_ls.setup({})
+-- lspconfig.solang.setup({})
 -- lspconfig.solc.setup({})
 
 -- web

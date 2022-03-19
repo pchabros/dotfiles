@@ -1,1 +1,0 @@
-{"title":"Right Alt to Ctrl+b","rules":[{"description":"","manipulators":[{"type":"basic","from":{"key_code":"right_alt"},"to":[{"repeat":true,"key_code":"b","modifiers":["left_control"]}]}]}]}

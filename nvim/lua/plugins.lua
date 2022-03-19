@@ -22,6 +22,9 @@ return require("packer").startup(
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip"
     }}})
+    use({ "tpope/vim-fugitive" })
+    use({ "airblade/vim-gitgutter" })
+    use({ "idanarye/vim-merginal" })
     use({ "rafamadriz/friendly-snippets" })
     use({ "mfussenegger/nvim-dap" })
     use({ "onsails/lspkind-nvim" })
@@ -29,8 +32,6 @@ return require("packer").startup(
     use({ "neovim/nvim-lspconfig" })
     use({ "tami5/lspsaga.nvim" })
     use({ "windwp/nvim-autopairs" })
-    use({ "vim-airline/vim-airline" })
-    use({ "vim-airline/vim-airline-themes" })
     use({ "kyazdani42/nvim-web-devicons"})
     use({ "arcticicestudio/nord-vim" })
     use({ "b3nj5m1n/kommentary" })
@@ -39,7 +40,8 @@ return require("packer").startup(
     use({ "jose-elias-alvarez/null-ls.nvim" })
     use({ "gbprod/cutlass.nvim" })
     use({ "norcalli/nvim-terminal.lua" })
-    use({ "camgraff/telescope-tmux.nvim" })
+    use({ "nvim-lualine/lualine.nvim" })
+    use({ "kdheepak/tabline.nvim" })
     use({
       "AckslD/nvim-neoclip.lua",
       requires = {

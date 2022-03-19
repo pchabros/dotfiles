@@ -1,3 +1,6 @@
+alias rb='sudo reboot'
+alias sd='sudo shutdown now'
+
 alias ls='ls_extended'
 alias ll='ls_extended -lah'
 alias gss='git status -s'
@@ -27,6 +30,9 @@ alias hdr='npx hardhat run scripts/deploy.js --network rinkeby'
 
 alias ..='cd ..'
 alias ...='cd ../..'
+
+alias pu='paru'
+alias nv='nvim'
 
 alias tree='tree -C'
 

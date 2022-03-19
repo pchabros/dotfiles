@@ -1,3 +1,11 @@
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx "$XDG_CONFIG_HOME/X11/.xinitrc" &> /dev/null
+fi
+
+export TERM="xterm-256color"
+source $DOTFILES/zsh/scripts.sh
+ftmuxp
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -5,7 +13,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export PATH="$HOME/.local/bin/:/opt/homebrew/bin/:$HOME/Library/Python/3.8/bin/:$PATH"
+export PATH="$HOME/.local/bin/:$PATH"
 
 fpath=($ZDOTDIR/external $fpath)
 
@@ -50,13 +58,9 @@ bindkey -M vicmd v edit-command-line
 source ~/dotfiles/zsh/external/bd.zsh
 
 if [ $(command -v "fzf") ]; then
-    source /opt/homebrew/Cellar/fzf/0.29.0/shell/completion.zsh
-    source /opt/homebrew/Cellar/fzf/0.29.0/shell/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
+    source /usr/share/fzf/key-bindings.zsh
 fi
-
-source $DOTFILES/zsh/scripts.sh
-
-ftmuxp
 
 # Clearing the shell is now done with CTRL+p
 bindkey -r '^l'
@@ -64,9 +68,10 @@ bindkey -r '^p'
 bindkey -s '^p' 'clear\n'
 
 # Syntax highlighing
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/share/zsh/plugins/zsh-syntax-highlighting/highlighters
 
 # Powerlevel
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+

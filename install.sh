@@ -10,9 +10,6 @@ ln -sf "$DOTFILES/zsh/aliases" "$XDG_CONFIG_HOME/zsh/aliases"
 rm -rf "$XDG_CONFIG_HOME/zsh/external"
 ln -sf "$DOTFILES/zsh/external" "$XDG_CONFIG_HOME/zsh"
 
-# Hyper
-ln -sf "$DOTFILES/hyper/.hyper.js" "$HOME"
-
 # NeoVim
 mkdir -p "$XDG_CONFIG_HOME/nvim"
 mkdir -p "$XDG_CONFIG_HOME/nvim/undo"
@@ -22,9 +19,6 @@ ln -s "$DOTFILES/nvim/lua" "$XDG_CONFIG_HOME/nvim"
 # radian
 mkdir -p "$XDG_CONFIG_HOME/radian"
 ln -sf "$DOTFILES/radian/profile" "$XDG_CONFIG_HOME/radian"
-
-# Fonts
-cp -rf "$DOTFILES/fonts" "/Library/Fonts"
 
 # tmux
 mkdir -p "$XDG_CONFIG_HOME/tmux"

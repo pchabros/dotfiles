@@ -30,8 +30,24 @@ o.termguicolors = true
 
 cmd("au ColorScheme * hi Normal ctermbg=none guibg=none")
 cmd("colorscheme nord")
-cmd("let g:airline#extensions#tabline#enabled = 1")
-cmd("let g:airline_powerline_fonts = 1")
+
+local tabline = require("tabline")
+tabline.setup({ 
+  enable = false,
+  options = {
+    show_filename_only = true
+  }
+})
+require("lualine").setup({
+  tabline = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { tabline.tabline_buffers },
+    lualine_x = { tabline.tabline_tabs },
+    lualine_y = {},
+    lualine_z = {},
+  },
+})
 
 -- telescope
 local actions = require("telescope.actions")
@@ -50,7 +66,6 @@ telescope.setup({
 
 telescope.load_extension("fzf")
 telescope.load_extension("neoclip")
-telescope.load_extension("tmux")
 
 -- hop
 require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
