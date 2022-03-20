@@ -1,0 +1,11 @@
+#include "./nord-xresources"
+
+URxvt*font: xft:'Operator Mono Book':size=12:antialias=true
+URxvt*letterSpace: -1
+URxvt*borderLess: false
+URxvt*externalBorder: 0
+URxvt*internalBorder: 4
+URxvt*scrollBar: false
+
+URxvt*saveLines: 5000
+
