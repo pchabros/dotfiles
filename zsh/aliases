@@ -1,6 +1,8 @@
 alias rb='sudo reboot'
 alias sd='sudo shutdown now'
+alias hb='systemctl hibernate'
 
+alias fm='clifm'
 alias ls='ls_extended'
 alias ll='ls_extended -lah'
 alias gss='git status -s'
@@ -20,6 +22,11 @@ alias gm='git merge'
 alias gss='git status -s'
 alias gt='git log --all --graph --decorate --oneline'
 
+alias dcl='docker container rm -f $(docker container ls -aq)'
+alias dcr='docker container run'
+alias dcri='docker container run --interactive --tty'
+alias dib='docker image build . --tag'
+
 alias hc='npx hardhat compile'
 alias hn='npx hardhat node'
 alias ht='npx hardhat test'
@@ -33,6 +40,7 @@ alias ...='cd ../..'
 
 alias pu='paru'
 alias nv='nvim'
+alias zh='zathura'
 
 alias tree='tree -C'
 

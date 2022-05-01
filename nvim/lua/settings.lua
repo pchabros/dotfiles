@@ -22,14 +22,14 @@ opt.indentexpr = "cindent"
 opt.inccommand = "nosplit"
 opt.scrolloff = 10
 opt.wrap = false
-opt.clipboard = "unnamedplus"
 opt.spelllang = "ru"
 g.timeoutlen = 10
 g.r_indent_align_args = 0
 o.termguicolors = true
+cmd("set clipboard^=unnamedplus")
 
-cmd("au ColorScheme * hi Normal ctermbg=none guibg=none")
 cmd("colorscheme nord")
+cmd("au ColorScheme * hi Normal ctermbg=none guibg=none")
 
 local tabline = require("tabline")
 tabline.setup({ 
@@ -54,7 +54,7 @@ local actions = require("telescope.actions")
 local telescope = require("telescope")
 telescope.setup({
   defaults = {
-    file_ignore_patterns = { "node_modules" },
+    -- file_ignore_patterns = { "node_modules" },
     mappings = {
       n = {
         ["k"] = actions.move_selection_next,
@@ -74,7 +74,14 @@ vim.cmd("hi HopNextKey1 guifg=#88c0d0")
 vim.cmd("hi HopNextKey2 guifg=#b48ead")
 
 -- trouble
-require("trouble").setup({})
+require("trouble").setup({
+  action_keys = {
+    hover = "H",
+    preview = "p",
+    previous = "l",
+    next = "k"
+  },
+})
 
 -- cutlass
 require("cutlass").setup({
@@ -86,3 +93,30 @@ require("neoclip").setup({})
 
 --terminal
 require("terminal").setup({})
+
+--dap
+local dap = require('dap')
+vim.fn.sign_define('DapBreakpoint', {text='', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapLogPoint', {text='', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointRejected', {text='', texthl='', linehl='', numhl=''})
+
+-- shade
+require'shade'.setup({
+  overlay_opacity = 80
+})
+
+-- gitgutter
+g.gitgutter_sign_modified = ''
+g.gitgutter_sign_removed = '-'
+g.gitgutter_sign_removed_first_line = ''
+g.gitgutter_sign_removed_above_and_below = ''
+g.gitgutter_sign_modified_removed = ''
+
+--rest
+require("rest-nvim").setup({
+  -- result_split_horizontal = true,
+  jump_to_request = true,
+  show_url = false,
+  show_http_info = false,
+  show_headers = false,
+})

@@ -77,6 +77,12 @@ luasnip.snippets = {
 }
 luasnip.snippets.javascript = luasnip.snippets.html
 luasnip.snippets.javascriptreact = luasnip.snippets.html
+luasnip.snippets.typescript = luasnip.snippets.html
+luasnip.snippets.typescriptreact = luasnip.snippets.html
+luasnip.snippets.javascript = luasnip.snippets.svg
+luasnip.snippets.javascriptreact = luasnip.snippets.svg
+luasnip.snippets.typescript = luasnip.snippets.svg
+luasnip.snippets.typescriptreact = luasnip.snippets.svg
 require('luasnip').filetype_extend("javascript", { "javascriptreact" })
 require("luasnip/loaders/from_vscode").load({include = { "html" }})
 require("luasnip/loaders/from_vscode").lazy_load()
@@ -99,6 +105,7 @@ cmp_autopairs.lisp[#cmp_autopairs.lisp+1] = "racket"
 lspconfig.solidity_ls.setup({})
 -- lspconfig.solang.setup({})
 -- lspconfig.solc.setup({})
+vim.cmd('autocmd BufRead *.sol setlocal shiftwidth=4')
 
 -- web
 lspconfig.html.setup({})
@@ -112,7 +119,12 @@ lspconfig.eslint.setup({})
 -- vim.api.nvim_exec([[autocmd FileType vue BufWritePre <buffer> EslintFixAll]], true)
 
 -- typescript
-lspconfig.tsserver.setup({})
+lspconfig.tsserver.setup({
+  on_attach = function(client)
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+  end,
+})
 
 -- popups (lspsaga)
 local saga = require("lspsaga")
@@ -123,11 +135,22 @@ saga.init_lsp_saga({
   }
 })
 
-require("null-ls").setup({
+local null_ls = require("null-ls")
+null_ls.setup({
   sources = {
-    require("null-ls").builtins.formatting.stylua,
-    require("null-ls").builtins.diagnostics.eslint,
-    require("null-ls").builtins.completion.spell,
+    null_ls.builtins.formatting.eslint,
+    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.completion.spell,
   },
+  -- on_attach = function(client)
+    -- if client.resolved_capabilities.document_formatting then
+      -- vim.cmd([[
+        -- augroup LspFormatting
+        -- autocmd! * <buffer>
+        -- autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+        -- augroup END
+      -- ]])
+    -- end
+  -- end,
   -- root_dir = u.root_pattern(".null-ls-root", "Makefile", ".git", ".eslintrc.js"),
 })

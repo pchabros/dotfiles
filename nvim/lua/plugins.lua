@@ -13,6 +13,7 @@ return require("packer").startup(
     use({ "wbthomason/packer.nvim", opt = true })
     use({ "moll/vim-bbye" })
     use({ "tpope/vim-surround" })
+    use({ "tpope/vim-eunuch" })
     use({ "lilydjwg/colorizer" })
     use({ "christoomey/vim-tmux-navigator" })
     use({ "nvim-treesitter/nvim-treesitter" })
@@ -27,6 +28,7 @@ return require("packer").startup(
     use({ "idanarye/vim-merginal" })
     use({ "rafamadriz/friendly-snippets" })
     use({ "mfussenegger/nvim-dap" })
+    use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
     use({ "onsails/lspkind-nvim" })
     use({ "leafOfTree/vim-vue-plugin" })
     use({ "neovim/nvim-lspconfig" })
@@ -42,6 +44,7 @@ return require("packer").startup(
     use({ "norcalli/nvim-terminal.lua" })
     use({ "nvim-lualine/lualine.nvim" })
     use({ "kdheepak/tabline.nvim" })
+    use({ "sunjon/shade.nvim" })
     use({
       "AckslD/nvim-neoclip.lua",
       requires = {
@@ -61,6 +64,7 @@ return require("packer").startup(
       "nvim-telescope/telescope.nvim",
       requires = "nvim-lua/plenary.nvim"
     })
+    use({ "NTBBloodbath/rest.nvim" })
     use({"nvim-telescope/telescope-fzf-native.nvim", run = "make" })
     use({ "phaazon/hop.nvim", as = "hop" })
   end,

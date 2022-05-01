@@ -20,6 +20,10 @@ ln -s "$DOTFILES/nvim/lua" "$XDG_CONFIG_HOME/nvim"
 mkdir -p "$XDG_CONFIG_HOME/radian"
 ln -sf "$DOTFILES/radian/profile" "$XDG_CONFIG_HOME/radian"
 
+# zathura
+mkdir -p "$XDG_CONFIG_HOME/zathura"
+ln -sf "$DOTFILES/zathura/zathurarc" "$XDG_CONFIG_HOME/zathura"
+
 # tmux
 mkdir -p "$XDG_CONFIG_HOME/tmux"
 ln -sf "$DOTFILES/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux"

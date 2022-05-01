@@ -61,6 +61,8 @@ if [ $(command -v "fzf") ]; then
     source /usr/share/fzf/completion.zsh
     source /usr/share/fzf/key-bindings.zsh
 fi
+export FZF_DEFAULT_OPTS='--layout=reverse'
+export FZF_TMUX_OPTS='-p 80%'
 
 # Clearing the shell is now done with CTRL+p
 bindkey -r '^l'
