@@ -41,8 +41,12 @@ return require("packer").startup(
       }
     })
     use({ "rafamadriz/friendly-snippets"})
+    use({
+      'nmac427/guess-indent.nvim',
+      config = function() require('guess-indent').setup {} end,
+    })
     use({ "tpope/vim-fugitive" })
-    use({ "airblade/vim-gitgutter" })
+    use({ 'lewis6991/gitsigns.nvim' })
     use({ "idanarye/vim-merginal" })
     use({ "mfussenegger/nvim-dap" })
     use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
