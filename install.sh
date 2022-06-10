@@ -16,6 +16,10 @@ mkdir -p "$XDG_CONFIG_HOME/nvim/undo"
 ln -sf "$DOTFILES/nvim/init.lua" "$XDG_CONFIG_HOME/nvim"
 ln -s "$DOTFILES/nvim/lua" "$XDG_CONFIG_HOME/nvim"
 
+# pgcli
+mkdir -p "$XDG_CONFIG_HOME/pgcli"
+ln -sf "$DOTFILES/pgcli/config" "$XDG_CONFIG_HOME/pgcli"
+
 # radian
 mkdir -p "$XDG_CONFIG_HOME/radian"
 ln -sf "$DOTFILES/radian/profile" "$XDG_CONFIG_HOME/radian"

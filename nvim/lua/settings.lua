@@ -24,6 +24,7 @@ opt.scrolloff = 10
 opt.wrap = false
 opt.spelllang = "ru"
 g.timeoutlen = 10
+g.ttimeoutlen = 10
 g.r_indent_align_args = 0
 o.termguicolors = true
 cmd("set clipboard^=unnamedplus")
@@ -32,7 +33,7 @@ cmd("colorscheme nord")
 cmd("au ColorScheme * hi Normal ctermbg=none guibg=none")
 
 local tabline = require("tabline")
-tabline.setup({ 
+tabline.setup({
   enable = false,
   options = {
     show_filename_only = true
@@ -96,12 +97,12 @@ require("terminal").setup({})
 
 --dap
 local dap = require('dap')
-vim.fn.sign_define('DapBreakpoint', {text='', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapLogPoint', {text='', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapBreakpointRejected', {text='', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpoint', { text = '', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapLogPoint', { text = '', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = '', linehl = '', numhl = '' })
 
 -- shade
-require'shade'.setup({
+require 'shade'.setup({
   overlay_opacity = 80
 })
 
@@ -120,3 +121,33 @@ require("rest-nvim").setup({
   show_http_info = false,
   show_headers = false,
 })
+
+-- dressing
+-- require('dressing').setup({
+  -- prompt_align = 'center',
+-- })
+
+-- require('range-highlight').setup {}
+
+require('cinnamon').setup({
+  extra_keymaps = true,
+})
+
+-- slime
+g.slime_target = 'tmux'
+g.slime_default_config = {
+  socket_name = "default", target_pane = "{last}"
+}
+g.slime_dont_ask_default = 1
+
+-- indent blankline
+vim.opt.list = true
+-- vim.opt.listchars:append("space:∙")
+-- vim.opt.listchars:append("eol:↴")
+
+require("indent_blankline").setup {
+  show_end_of_line = true,
+  -- space_char_blankline = " ",
+  show_current_context = true,
+  show_current_context_start = true,
+}

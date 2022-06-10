@@ -19,8 +19,8 @@ map("n", "k", "j")
 map("n", "j", "h")
 
 -- move faster vertically
-map("n", "K", "10j")
-map("n", "L", "10k")
+map("n", "K", "<Cmd>lua Scroll('10j', 1)<cr>")
+map("n", "L", "<Cmd>lua Scroll('10k', 1)<cr>")
 
 -- normal mode with jk or kj
 map("i", "jk", "<Esc>")
@@ -32,10 +32,8 @@ map("n", "<leader>,", ":norm ggVG<cr>")
 -- manage buffers
 map("n", "<leader>b;", ":bn<cr>")
 map("n", "<leader>bj", ":bp<cr>")
-map("n", "<C-:>", ":bn<cr>")
-map("n", "<C-J>", ":bp<cr>")
-map("n", "<leader>bd", ":Bdelete<cr>")
-map("n", "<leader>bq", ":bufdo :Bdelete<cr>")
+map("n", "<leader>qq", ":Bdelete<cr>")
+map("n", "<leader>qa", ":bufdo :Bdelete<cr>")
 map("n", "<leader>sh", ":split<cr>")
 map("n", "<leader>sv", ":vsplit<cr>")
 
@@ -53,9 +51,6 @@ map("n", "m", ",")
 -- remove highlight with one key
 map("n", "h", ":noh<cr>")
 
--- resize tab to 103 characters
-map("n", "<leader>rs", ":vertical resize 103<cr>")
-
 -- lsp
 map("n", "<leader>ld", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>")
 map("n", "H", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>")
@@ -72,7 +67,7 @@ map("n", "d]", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 -- telescope
 map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>")
 map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
-map("n", "<leader>fB", "<cmd>lua require('telescope.builtin').buffers()<cr>")
+map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
 map("n", "<leader>fr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
 map("n", "<leader>fS", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
@@ -87,7 +82,7 @@ map("n", "<leader>gu", ":git push --set-upstream origin $(git branch --show-curr
 map("n", "<leader>gC", "<cmd>lua require('telescope.builtin').git_commits()<cr>")
 map("n", "<leader>gB", "<cmd>lua require('telescope.builtin').git_bcommits()<cr>")
 map("n", "<leader>gs", "<cmd>lua require('telescope.builtin').git_status()<cr>")
-map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').git_branches()<cr>")
+map("n", "<leader>gb", "<cmd>lua require('telescope.builtin').git_branches()<cr>")
 map("n", "<leader>fs", "<cmd>lua require('telescope.builtin').git_stash()<cr>")
 map("n", "<leader>mm", ":MerginalToggle<cr>")
 
@@ -104,12 +99,14 @@ map("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
 map("n", "<leader>tt", "<cmd>TroubleToggle<CR>")
 
 -- hop
-map("n", "<leader>h", "<cmd>:HopChar1<cr>")
-map("v", "<leader>h", "<cmd>:HopChar1<cr>")
-map("n", "<leader>hl", "<cmd>:HopLine<cr>")
-map("v", "<leader>hl", "<cmd>:HopLine<cr>")
+map("n", "<leader>m", "<cmd>:HopChar1<cr>")
+map("v", "<leader>m", "<cmd>:HopChar1<cr>")
 
 -- rest
 map("n", "<leader>rr", "<Plug>RestNvim")
 map("n", "<leader>rp", "<Plug>RestNvimPreview")
 map("n", "<leader>rl", "<Plug>RestNvimLast")
+
+-- vim-slime
+map("v", ",", ":SlimeSend<cr>")
+map("n", ",", ":SlimeSendCurrentLine<cr>")

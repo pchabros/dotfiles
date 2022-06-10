@@ -1,6 +1,13 @@
+local buf_map = function(bufnr, mode, lhs, rhs, opts)
+  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
+    silent = true,
+  })
+end
+
 local lspconfig = require("lspconfig")
 vim.opt_global.completeopt = { "menu", "noinsert", "noselect" }
 vim.opt_global.shortmess:remove("F"):append("c")
+
 -- languageserver R
 lspconfig.r_language_server.setup({
   settings = {
@@ -20,17 +27,187 @@ lspconfig.r_language_server.setup({
 
 -- Tree-sitter
 local ts = require("nvim-treesitter.configs")
-ts.setup({ ensure_installed = "maintained", highlight = { enable = true } })
+ts.setup({
+  ensure_installed = "all",
+  highlight = { enable = true },
+  indent = {
+    enable = true,
+  },
+  autotag = {
+    enable = true,
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+  },
+})
+
+-- lua
+lspconfig.sumneko_lua.setup({
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+      hover = {
+        enable = false,
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.stdpath "config" .. "/lua"] = true,
+        },
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+})
+
+-- solidity
+lspconfig.solidity_ls.setup({})
+vim.cmd('autocmd BufRead *.sol setlocal shiftwidth=4')
+
+-- typescript
+local on_attach = function(client, bufnr)
+  vim.cmd("command! LspDef lua vim.lsp.buf.definition()")
+  vim.cmd("command! LspFormatting lua vim.lsp.buf.formatting()")
+  vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
+  vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
+  vim.cmd("command! LspRename lua vim.lsp.buf.rename()")
+  vim.cmd("command! LspRefs lua vim.lsp.buf.references()")
+  vim.cmd("command! LspTypeDef lua vim.lsp.buf.type_definition()")
+  vim.cmd("command! LspImplementation lua vim.lsp.buf.implementation()")
+  vim.cmd("command! LspDiagPrev lua vim.diagnostic.goto_prev()")
+  vim.cmd("command! LspDiagNext lua vim.diagnostic.goto_next()")
+  vim.cmd("command! LspDiagLine lua vim.diagnostic.open_float()")
+  vim.cmd("command! LspSignatureHelp lua vim.lsp.buf.signature_help()")
+  buf_map(bufnr, "n", "<leader>gd", ":LspDef<CR>")
+  buf_map(bufnr, "n", "<leader>re", ":LspRename<CR>")
+  buf_map(bufnr, "n", "<leader>td", ":LspTypeDef<CR>")
+  buf_map(bufnr, "n", "H", ":LspHover<CR>")
+  buf_map(bufnr, "n", "d[", ":LspDiagPrev<CR>")
+  buf_map(bufnr, "n", "d]", ":LspDiagNext<CR>")
+  buf_map(bufnr, "n", "<leader>ca", ":LspCodeAction<CR>")
+  buf_map(bufnr, "n", "<Leader>dl", ":LspDiagLine<CR>")
+  buf_map(bufnr, "i", "<leader>sh", "<cmd> LspSignatureHelp<CR>")
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+  end
+end
+
+lspconfig.tsserver.setup({
+  on_attach = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+    local ts_utils = require("nvim-lsp-ts-utils")
+    ts_utils.setup({})
+    ts_utils.setup_client(client)
+    buf_map(bufnr, "n", "<leader>is", ":TSLspOrganize<CR>")
+    buf_map(bufnr, "n", "<leader>rf", ":TSLspRenameFile<CR>")
+    buf_map(bufnr, "n", "<leader>ia", ":TSLspImportAll<CR>")
+    on_attach(client, bufnr)
+  end,
+})
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+lspconfig.html.setup({
+  cmd = { 'html-languageserver', '--stdio' },
+  filetypes = {
+    'html',
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescript.tsx',
+    'typescriptreact',
+  },
+  capabilities = capabilities,
+})
+lspconfig.cssls.setup({
+  capabilities = capabilities,
+})
+
+lspconfig.eslint.setup({
+  root_dir = lspconfig.util.root_pattern(".eslintrc", ".eslintrc.js", ".eslintrc.json"),
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = true
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  settings = {
+    format = {
+      enable = true,
+    },
+  },
+  handlers = {
+    ["window/showMessageRequest"] = function(_, result)
+      if result.message:find("ENOENT") then
+        return vim.NIL
+      end
+      return vim.lsp.handlers["window/showMessageRequest"](nil, result)
+    end,
+  },
+})
+
+local null_ls = require("null-ls")
+local prettier = require("prettier")
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.formatting.prettier
+  },
+  on_attach = on_attach
+})
+
+prettier.setup({
+  bin = 'prettier', -- or `prettierd`
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+  -- prettier format options (you can use config files too. ex: `.prettierrc`)
+  arrow_parens = "always",
+  bracket_spacing = true,
+  embedded_language_formatting = "auto",
+  end_of_line = "lf",
+  html_whitespace_sensitivity = "css",
+  jsx_bracket_same_line = false,
+  jsx_single_quote = false,
+  print_width = 80,
+  prose_wrap = "preserve",
+  quote_props = "as-needed",
+  semi = true,
+  single_quote = false,
+  tab_width = 2,
+  trailing_comma = "es5",
+  use_tabs = false,
+  vue_indent_script_and_style = false,
+})
 
 -- completion related settings
 local cmp = require("cmp")
 local lspkind = require("lspkind")
+local from_vscode = require("luasnip.loaders.from_vscode")
 
 cmp.setup({
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-      require("luasnip").filetype_extend("javascript", { "javascriptreact" })
+      local luasnip = require('luasnip')
+      luasnip.lsp_expand(args.body)
     end,
   },
   formatting = {
@@ -38,7 +215,7 @@ cmp.setup({
       mode = "symbol",
       with_text = false,
       maxwidth = 90,
-      before = function (entry, vim_item)
+      before = function(entry, vim_item)
         return vim_item
       end
     })
@@ -58,8 +235,8 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-  }, {
     { name = 'buffer' },
+    { name = 'path' },
   })
 })
 
@@ -71,24 +248,9 @@ cmp.setup.cmdline(':', {
   })
 })
 
-local luasnip = require("luasnip")
-luasnip.snippets = {
-  html = {}
-}
-luasnip.snippets.javascript = luasnip.snippets.html
-luasnip.snippets.javascriptreact = luasnip.snippets.html
-luasnip.snippets.typescript = luasnip.snippets.html
-luasnip.snippets.typescriptreact = luasnip.snippets.html
-luasnip.snippets.javascript = luasnip.snippets.svg
-luasnip.snippets.javascriptreact = luasnip.snippets.svg
-luasnip.snippets.typescript = luasnip.snippets.svg
-luasnip.snippets.typescriptreact = luasnip.snippets.svg
-require('luasnip').filetype_extend("javascript", { "javascriptreact" })
-require("luasnip/loaders/from_vscode").load({include = { "html" }})
-require("luasnip/loaders/from_vscode").lazy_load()
-
+-- autopairs
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on( "confirm_done", cmp_autopairs.on_confirm_done({
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({
   map_cr = true,
   map_complete = true,
   auto_select = true,
@@ -99,32 +261,7 @@ cmp.event:on( "confirm_done", cmp_autopairs.on_confirm_done({
   }
 }))
 
-cmp_autopairs.lisp[#cmp_autopairs.lisp+1] = "racket"
-
--- solidity
-lspconfig.solidity_ls.setup({})
--- lspconfig.solang.setup({})
--- lspconfig.solc.setup({})
-vim.cmd('autocmd BufRead *.sol setlocal shiftwidth=4')
-
--- web
-lspconfig.html.setup({})
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-lspconfig.cssls.setup({
-  capabilities = capabilities,
-})
-lspconfig.vuels.setup({})
-lspconfig.eslint.setup({})
--- vim.api.nvim_exec([[autocmd FileType vue BufWritePre <buffer> EslintFixAll]], true)
-
--- typescript
-lspconfig.tsserver.setup({
-  on_attach = function(client)
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
-  end,
-})
+cmp_autopairs.lisp[#cmp_autopairs.lisp + 1] = "racket"
 
 -- popups (lspsaga)
 local saga = require("lspsaga")
@@ -135,22 +272,14 @@ saga.init_lsp_saga({
   }
 })
 
-local null_ls = require("null-ls")
-null_ls.setup({
-  sources = {
-    null_ls.builtins.formatting.eslint,
-    null_ls.builtins.diagnostics.eslint,
-    null_ls.builtins.completion.spell,
-  },
-  -- on_attach = function(client)
-    -- if client.resolved_capabilities.document_formatting then
-      -- vim.cmd([[
-        -- augroup LspFormatting
-        -- autocmd! * <buffer>
-        -- autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-        -- augroup END
-      -- ]])
-    -- end
-  -- end,
-  -- root_dir = u.root_pattern(".null-ls-root", "Makefile", ".git", ".eslintrc.js"),
-})
+-- luasnip
+local luasnip = require('luasnip')
+luasnip.snippets = {
+  html = {}
+}
+luasnip.snippets.javascript = luasnip.snippets.html
+luasnip.snippets.javascriptreact = luasnip.snippets.html
+luasnip.snippets.typescriptreact = luasnip.snippets.html
+from_vscode.load({ include = { "html" } })
+from_vscode.lazy_load()
+luasnip.filetype_extend("typescriptreact", { "html" })
