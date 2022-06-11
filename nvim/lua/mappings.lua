@@ -110,3 +110,7 @@ map("n", "<leader>rl", "<Plug>RestNvimLast")
 -- vim-slime
 map("v", ",", ":SlimeSend<cr>")
 map("n", ",", ":SlimeSendCurrentLine<cr>")
+
+-- ultisnips
+vim.g.UltiSnipsJumpBackwardTrigger = "[["
+vim.g.UltiSnipsJumpForwardTrigger = "]]"

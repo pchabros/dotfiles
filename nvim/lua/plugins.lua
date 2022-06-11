@@ -41,6 +41,9 @@ return require("packer").startup(
       }
     })
     use({ "rafamadriz/friendly-snippets"})
+    use({ 'SirVer/ultisnips' })
+    use({ 'quangnguyen30192/cmp-nvim-ultisnips' })
+    use({ 'mlaursen/vim-react-snippets' })
     use({
       'nmac427/guess-indent.nvim',
       config = function() require('guess-indent').setup {} end,

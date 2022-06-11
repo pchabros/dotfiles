@@ -208,6 +208,7 @@ cmp.setup({
     expand = function(args)
       local luasnip = require('luasnip')
       luasnip.lsp_expand(args.body)
+      vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
   formatting = {
@@ -235,6 +236,7 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'ultisnips' },
     { name = 'buffer' },
     { name = 'path' },
   })
