@@ -6,7 +6,7 @@ end
 
 local lspconfig = require("lspconfig")
 vim.opt_global.completeopt = { "menu", "noinsert", "noselect" }
-vim.opt_global.shortmess:remove("F"):append("c")
+-- vim.opt_global.shortmess:remove("F"):append("c")
 
 -- languageserver R
 lspconfig.r_language_server.setup({
@@ -70,6 +70,17 @@ lspconfig.solidity_ls.setup({})
 vim.cmd('autocmd BufRead *.sol setlocal shiftwidth=4')
 
 -- typescript
+local lsp_formatting = function(bufnr)
+    vim.lsp.buf.format({
+        filter = function(client)
+            -- apply whatever logic you want (in this example, we'll only use null-ls)
+            return client.name == "null-ls"
+        end,
+        bufnr = bufnr,
+    })
+end
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local navic = require("nvim-navic")
 local on_attach = function(client, bufnr)
   vim.cmd("command! LspDef lua vim.lsp.buf.definition()")
   vim.cmd("command! LspFormatting lua vim.lsp.buf.formatting()")
@@ -92,15 +103,25 @@ local on_attach = function(client, bufnr)
   buf_map(bufnr, "n", "<leader>ca", ":LspCodeAction<CR>")
   buf_map(bufnr, "n", "<Leader>dl", ":LspDiagLine<CR>")
   buf_map(bufnr, "i", "<leader>sh", "<cmd> LspSignatureHelp<CR>")
-  if client.resolved_capabilities.document_formatting then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        lsp_formatting(bufnr)
+      end,
+    })
+  end
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
   end
 end
 
 lspconfig.tsserver.setup({
   on_attach = function(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
     local ts_utils = require("nvim-lsp-ts-utils")
     ts_utils.setup({})
     ts_utils.setup_client(client)
@@ -130,7 +151,7 @@ lspconfig.cssls.setup({
 })
 
 lspconfig.eslint.setup({
-  root_dir = lspconfig.util.root_pattern(".eslintrc", ".eslintrc.js", ".eslintrc.json"),
+  root_dir = lspconfig.util.root_pattern(".eslintrc", ".eslintrc.js", ".eslintrc.json", "tsconfig.json"),
   on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = true
     on_attach(client, bufnr)
@@ -208,7 +229,7 @@ cmp.setup({
     expand = function(args)
       local luasnip = require('luasnip')
       luasnip.lsp_expand(args.body)
-      vim.fn["UltiSnips#Anon"](args.body)
+      -- vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
   formatting = {
@@ -263,7 +284,7 @@ cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({
   }
 }))
 
-cmp_autopairs.lisp[#cmp_autopairs.lisp + 1] = "racket"
+-- cmp_autopairs.lisp[#cmp_autopairs.lisp + 1] = "racket"
 
 -- popups (lspsaga)
 local saga = require("lspsaga")

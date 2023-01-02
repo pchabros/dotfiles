@@ -39,6 +39,7 @@ tabline.setup({
     show_filename_only = true
   }
 })
+-- lualine
 require("lualine").setup({
   tabline = {
     lualine_a = {},
@@ -50,12 +51,65 @@ require("lualine").setup({
   },
 })
 
+--nvim-navic
+local navic = require("nvim-navic")
+vim.o.winbar = "  %{%v:lua.require'nvim-navic'.get_location()%}"
+navic.setup {
+  icons = {
+    File = ' ',
+    Module = ' ',
+    Namespace = ' ',
+    Package = ' ',
+    Class = ' ',
+    Method = ' ',
+    Property = ' ',
+    Field = ' ',
+    Constructor = ' ',
+    Enum = ' ',
+    Interface = ' ',
+    Function = ' ',
+    Variable = ' ',
+    Constant = ' ',
+    String = ' ',
+    Number = ' ',
+    Boolean = ' ',
+    Array = ' ',
+    Object = ' ',
+    Key = ' ',
+    Null = ' ',
+    EnumMember = ' ',
+    Struct = ' ',
+    Event = ' ',
+    Operator = ' ',
+    TypeParameter = ' '
+  }
+}
+
 -- telescope
 local actions = require("telescope.actions")
+local previewers = require('telescope.previewers')
+local previewers_utils = require('telescope.previewers.utils')
+
+local max_size = 10000
+local truncate_large_files = function(filepath, bufnr, opts)
+  opts = opts or {}
+  filepath = vim.fn.expand(filepath)
+  vim.loop.fs_stat(filepath, function(_, stat)
+    if not stat then return end
+    if stat.size > max_size then
+      local comand = {"head", "-c", max_size, filepath}
+      previewers_utils.job_maker(comand, bufnr, opts)
+    else
+      previewers.buffer_previewer_maker(filepath, bufnr, opts)
+    end
+  end)
+end
+
 local telescope = require("telescope")
 telescope.setup({
   defaults = {
     -- file_ignore_patterns = { "node_modules" },
+    buffer_previewer_maker = truncate_large_files,
     mappings = {
       n = {
         ["k"] = actions.move_selection_next,
@@ -138,12 +192,12 @@ vim.opt.list = true
 -- vim.opt.listchars:append("space:∙")
 -- vim.opt.listchars:append("eol:↴")
 
-require("indent_blankline").setup {
+--[[ require("indent_blankline").setup {
   show_end_of_line = true,
   -- space_char_blankline = " ",
   show_current_context = true,
   show_current_context_start = true,
-}
+} ]]
 
 require('gitsigns').setup{
   on_attach = function(bufnr)

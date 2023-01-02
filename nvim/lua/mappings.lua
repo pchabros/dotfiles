@@ -8,6 +8,9 @@ end
 
 vim.g.mapleader = " "
 
+-- save file
+map("n", "<leader>ss", ":write<cr>")
+
 -- movement changed to jkl;
 map("v", ";", "l")
 map("v", "l", "k")
@@ -54,8 +57,8 @@ map("n", "h", ":noh<cr>")
 -- lsp
 map("n", "<leader>ld", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>")
 map("n", "H", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>")
-map("n", "<C-K>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
-map("n", "<C-L>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>")
+map("n", "]", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
+map("n", "[", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>")
 map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
 map("n", "<leader>lr", "<cmd>lua require('lspsaga.rename').rename()<CR>")
 map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>")
@@ -76,7 +79,9 @@ map("n", "<leader>fS", "<cmd>lua require('telescope.builtin').lsp_document_symbo
 map("n", "<leader>gg", ":Git<cr>")
 map("n", "<leader>gc", ":Git commit<cr>")
 map("n", "<leader>gp", ":Git push<cr>")
+map("n", "<leader>gP", ":Git push --force-with-lease<cr>")
 map("n", "<leader>gd", ":Git pull<cr>")
+map("n", "<leader>gf", ":Git fetch --all<cr>")
 map("n", "<leader>gv", ":Gvdiffsplit")
 map("n", "<leader>gu", ":git push --set-upstream origin $(git branch --show-current)<cr>")
 map("n", "<leader>gC", "<cmd>lua require('telescope.builtin').git_commits()<cr>")

@@ -56,6 +56,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec alacritty
 
+# screenshot
+bindsym $mod+Shift+p exec gscreenshot --clip --selection
+
 # kill focused window
 bindsym $mod+Shift+q kill
 

@@ -19,10 +19,12 @@ return require("packer").startup(
     use({ "wbthomason/packer.nvim", opt = true })
     use({ "moll/vim-bbye" })
     use({ "tpope/vim-surround" })
+    use({ "tpope/vim-repeat" })
     use({ "tpope/vim-eunuch" })
     use({ "lilydjwg/colorizer" })
     use({ "christoomey/vim-tmux-navigator" })
     use({ "nvim-treesitter/nvim-treesitter" })
+    use({ "0x100101/lab.nvim" })
     use({ "hrsh7th/nvim-cmp", requires = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -97,6 +99,17 @@ return require("packer").startup(
     use({ "NTBBloodbath/rest.nvim" })
     use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
     use({ "phaazon/hop.nvim", as = "hop" })
+    use({
+      "SmiteshP/nvim-navic",
+      requires = "neovim/nvim-lspconfig"
+    })
+    use({
+      "quarto-dev/quarto-vim",
+      requires = {
+        {"vim-pandoc/vim-pandoc-syntax"},
+      },
+      ft = {"quarto"},
+    })
   end,
   {
     display = {
