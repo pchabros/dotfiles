@@ -26,6 +26,7 @@ opt.spelllang = "ru"
 g.timeoutlen = 10
 g.ttimeoutlen = 10
 g.r_indent_align_args = 0
+g.r_indent_ess_compatible = 0
 o.termguicolors = true
 cmd("set clipboard^=unnamedplus")
 

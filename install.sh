@@ -28,6 +28,12 @@ ln -sf "$DOTFILES/radian/profile" "$XDG_CONFIG_HOME/radian"
 mkdir -p "$XDG_CONFIG_HOME/zathura"
 ln -sf "$DOTFILES/zathura/zathurarc" "$XDG_CONFIG_HOME/zathura"
 
+# Min
+ln -s "$DOTFILES/Min" "$XDG_CONFIG_HOME"
+
+# Lazygit
+ln -sf "$DOTFILES/lazygit/config.yml" "$XDG_CONFIG_HOME/lazygit"
+
 # tmux
 mkdir -p "$XDG_CONFIG_HOME/tmux"
 ln -sf "$DOTFILES/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux"

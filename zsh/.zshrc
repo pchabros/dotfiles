@@ -4,6 +4,7 @@ fi
 
 export TERM="xterm-256color"
 source $DOTFILES/zsh/scripts.sh
+source $HOME/.cargo/env
 ftmuxp
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
@@ -13,7 +14,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export PATH="$HOME/.local/bin/:$PATH"
+export PATH="$HOME/.local/bin/:$HOME/.local/lib/depot_tools/:$PATH"
 
 fpath=($ZDOTDIR/external $fpath)
 
@@ -63,11 +64,6 @@ if [ $(command -v "fzf") ]; then
 fi
 export FZF_DEFAULT_OPTS='--layout=reverse'
 export FZF_TMUX_OPTS='-p 80%'
-
-# Clearing the shell is now done with CTRL+p
-bindkey -r '^l'
-bindkey -r '^p'
-bindkey -s '^p' 'clear\n'
 
 # Syntax highlighing
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

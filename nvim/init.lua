@@ -1,7 +1,2 @@
-require("plugins")
-require("lsp")
-require("dap-config")
-require("mappings")
-require("settings")
-
-require("nvim-autopairs").setup({})
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")

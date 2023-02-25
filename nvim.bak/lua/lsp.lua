@@ -71,13 +71,13 @@ vim.cmd('autocmd BufRead *.sol setlocal shiftwidth=4')
 
 -- typescript
 local lsp_formatting = function(bufnr)
-    vim.lsp.buf.format({
-        filter = function(client)
-            -- apply whatever logic you want (in this example, we'll only use null-ls)
-            return client.name == "null-ls"
-        end,
-        bufnr = bufnr,
-    })
+  vim.lsp.buf.format({
+    filter = function(client)
+      -- apply whatever logic you want (in this example, we'll only use null-ls)
+      return client.name == "null-ls"
+    end,
+    bufnr = bufnr,
+  })
 end
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local navic = require("nvim-navic")
@@ -177,7 +177,7 @@ local prettier = require("prettier")
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.diagnostics.eslint_d,
+    -- null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.formatting.prettier
   },
