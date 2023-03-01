@@ -3,6 +3,7 @@ return {
   opts = {
     servers = {
       rust_analyzer = {},
+      r_language_server = {},
     },
   },
   init = function()
