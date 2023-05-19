@@ -51,3 +51,8 @@ map("n", "h", ":noh<cr>")
 set({ "n", "x", "o" }, "m", "<Plug>(leap-forward-to)")
 set({ "n", "x", "o" }, "M", "<Plug>(leap-backward-to)")
 set({ "n", "x", "o" }, "gm", "<Plug>(leap-cross-window)")
+
+-- rest
+set({ "n", "x", "o" }, "<leader>rr", "<Plug>RestNvim")
+set({ "n", "x", "o" }, "<leader>rp", "<Plug>RestNvimPreview")
+set({ "n", "x", "o" }, "<leader>rl", "<Plug>RestNvimLast")
