@@ -55,6 +55,9 @@ alias pu='paru'
 alias prc='pacman -Rcns'
 alias prs='pacman -Runs'
 
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -o -selection clipboard'
+
 alias nv='nvim'
 alias zh='zathura'
 alias open='xdg-open'
@@ -63,6 +66,8 @@ alias res-norm='xrandr --output DP-1 --mode 3440x1440'
 alias res-pres='xrandr --output DP-1 --mode 1920x1080'
 
 alias tree='tree -a -C'
+
+alias pi='zypper install'
 
 alias d='dirs -v'
 for index ({1...9}) alias "$index"="cd +${index}"; unset index

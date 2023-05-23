@@ -1,10 +1,8 @@
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx "$XDG_CONFIG_HOME/X11/.xinitrc" &> /dev/null
-fi
+start_vpn
 
+export TMUX_TMPDIR='/tmp'
 export TERM="xterm-256color"
 source $DOTFILES/zsh/scripts.sh
-source $HOME/.cargo/env
 ftmuxp
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
@@ -72,6 +70,3 @@ export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/share/zsh/plugins/zsh-syntax-highligh
 # Powerlevel
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-
-
-source /home/kris/.config/broot/launcher/bash/br
