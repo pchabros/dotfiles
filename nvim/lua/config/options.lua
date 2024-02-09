@@ -10,3 +10,4 @@ o.timeoutlen = 500
 o.ignorecase = false
 g.r_indent_align_args = 0
 g.nord_borders = true
+g.nord_uniform_diff_background = true

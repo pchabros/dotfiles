@@ -20,6 +20,7 @@ return {
   opts = {
     defaults = {
       buffer_previewer_maker = truncate_large_files,
+      file_ignore_patterns = { ".Rd$", ".RDS$" },
       mappings = {
         i = {
           ["<C-k>"] = function(...)

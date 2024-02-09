@@ -11,6 +11,7 @@ end
 
 local del = vim.keymap.del
 local set = vim.keymap.set
+local input = vim.fn.input
 
 -- delete some mappings
 del("n", "<leader>qq")
@@ -47,12 +48,34 @@ map("n", "*", ":keepjumps normal! mi*`i<cr>")
 -- remove highlight with one key
 map("n", "h", ":noh<cr>")
 
--- leap
-set({ "n", "x", "o" }, "m", "<Plug>(leap-forward-to)")
-set({ "n", "x", "o" }, "M", "<Plug>(leap-backward-to)")
-set({ "n", "x", "o" }, "gm", "<Plug>(leap-cross-window)")
-
 -- rest
 set({ "n", "x", "o" }, "<leader>rr", "<Plug>RestNvim")
 set({ "n", "x", "o" }, "<leader>rp", "<Plug>RestNvimPreview")
 set({ "n", "x", "o" }, "<leader>rl", "<Plug>RestNvimLast")
+
+-- diffview
+set({ "n" }, "<leader>gd", function()
+  local branch = input("Branch:")
+  vim.cmd("DiffviewOpen " .. branch)
+end, { desc = "diff" })
+set({ "n" }, "<leader>gq", ":DiffviewClose<cr>", { desc = "close" })
+
+-- telescope
+set({ "n" }, "<leader>gb", require("telescope.builtin").git_branches, { desc = "branch" })
+
+-- git-conflict
+set({ "n" }, "<leader>co", ":GitConflictChooseOurs <cr>", { desc = " Ours" })
+set({ "n" }, "<leader>ct", ":GitConflictChooseTheirs <cr>", { desc = " Theirs" })
+set({ "n" }, "<leader>cb", ":GitConflictChooseBoth <cr>", { desc = " Both" })
+set({ "n" }, "<leader>cn", ":GitConflictChooseNone <cr>", { desc = " None" })
+set({ "n" }, "<leader>cc", ":GitConflictListQf <cr>", { desc = " List" })
+set({ "n" }, "]x", ":GitConflictNextConflict <cr>", { desc = " Next" })
+set({ "n" }, "[x", ":GitConflictPrevConflict <cr>", { desc = " Prev" })
+
+-- tmux-navigator
+if os.getenv("TMUX") then
+  map("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>")
+  map("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>")
+  map("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>")
+  map("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>")
+end

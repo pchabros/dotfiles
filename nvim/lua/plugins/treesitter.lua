@@ -2,7 +2,14 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "dockerfile", "lua", "javascript", "typescript", "python" },
+      ensure_installed = {
+        "dockerfile",
+        "javascript",
+        "jsonc",
+        "lua",
+        "python",
+        "typescript",
+      },
       indent = {
         enable = true,
         disable = { "python" },
